@@ -1,9 +1,40 @@
 import sys
-from window import Ui_MainWindow
 from random import randrange
-from PyQt5.QtCore import Qt
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPainter, QColor
-from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow
+
+
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(600, 579)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(40, 30, 151, 41))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton.setFont(font)
+        self.pushButton.setObjectName("pushButton")
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 600, 21))
+        self.menubar.setObjectName("menubar")
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.pushButton.setText(_translate("MainWindow", "Нарисовать"))
 
 
 class MyWidget(QMainWindow, Ui_MainWindow):
@@ -25,8 +56,8 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             qp.end()
 
     def draw_rect(self, qp):
-        qp.setBrush(QColor(255, 255, 0))
         for i in range(randrange(5, 30)):
+            qp.setBrush(QColor(randrange(0, 255), randrange(0, 255), randrange(0, 255)))
             r = randrange(10, 50)
             x = randrange(100, 500)
             y = randrange(100, 500)
